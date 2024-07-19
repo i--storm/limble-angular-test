@@ -1,0 +1,11 @@
+.content{
+  width: 968px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
+
+textarea{
+  width: 100%;
+  height: 80px;
+}
