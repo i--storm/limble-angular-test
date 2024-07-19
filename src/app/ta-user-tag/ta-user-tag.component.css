@@ -2,3 +2,19 @@ textarea{
   width: 100%;
   height: 80px;
 }
+
+.ta-user-tag{
+  position: relative;
+}
+
+.users-list{
+  position: absolute;
+  width: 250px;
+  height: 100px;
+  background-color: #fff;
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 5px 5px 5px #000;
+  top: 0;
+  left: 0;
+}
