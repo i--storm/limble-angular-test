@@ -1,5 +1,5 @@
 <div class="ta-user-tag">
-  <div id="comment-editor" (keyup)="keyup($event)" contenteditable="true"></div>
+  <div id="comment-editor" (keyup)="keyup($event)" (keydown)="keydown($event)" contenteditable="true"></div>
   <div class="users-list" *ngIf="is_show_dialog" [style.width]="dialog_width" [style.height]="dialog_height"  [style.top]="dialog_top" [style.left]="dialog_left" [style.bottom]="dialog_bottom" [style.right]="dialog_right" >
     @for (user of users_filtered; track user.userID) {
       <div id="user-list-user-{{user.userID}}" class="user-item" [class.selected]="user.userID == dialog_selected_id">{{ user.name }}</div>

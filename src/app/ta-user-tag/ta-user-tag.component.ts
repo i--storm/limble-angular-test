@@ -68,6 +68,34 @@ export class TaUserTagComponent {
     }
   }*/
 
+  keydown(e: KeyboardEvent) {
+    let target = e.target as HTMLDivElement;
+
+    if(e.key=="Enter"){
+
+
+      if(!this.is_show_dialog){
+        return;
+      }
+      e.preventDefault()
+
+      let user = this.users_filtered[this.dialog_selected_idx]
+
+      const cursor_position = this.getCursorPosition(target)
+
+      let text = target.innerText
+
+      target.textContent = text + user.name
+
+      let brs_count  =text.split("\n").length-1
+
+      this.setCursorPosition(target, cursor_position+user.name.length+brs_count)
+
+      target.focus();
+
+      this.is_show_dialog = false
+    }
+  }
   keyup(e: KeyboardEvent){
     let target = e.target as HTMLDivElement;
 
@@ -147,21 +175,6 @@ export class TaUserTagComponent {
     }else if(e.key==" "){
       this.is_show_dialog = false;
     }else if(e.key=="Escape"){
-      this.is_show_dialog = false
-    }else if(e.key=="Enter"){
-      if(!this.is_show_dialog){
-        return;
-      }
-      let user = this.users_filtered[this.dialog_selected_idx]
-
-      const cursor_position = this.getCursorPosition(target)
-
-      target.textContent = target.innerText += user.name
-
-      this.setCursorPosition(target, cursor_position+user.name.length)
-
-      target.focus();
-
       this.is_show_dialog = false
     }else{
       if(this.is_show_dialog){
