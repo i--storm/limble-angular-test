@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { TaUserTagComponent } from "./ta-user-tag/ta-user-tag.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, TaUserTagComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -27,15 +27,5 @@ export class AppComponent {
     {'userID' : 3, 'name' : 'Bryan'},
     {'userID' : 4, 'name' : 'Gabbey'},
   ];
-  is_show_dialog = false
 
-  keyup(e: KeyboardEvent){
-    //let target = e.target as HTMLTextAreaElement;
-
-    //if(target !== null && target.value==="@") {
-    if(e.key === "@"){
-      console.log("keyup @")
-      this.is_show_dialog = true;
-    }
-  }
 }

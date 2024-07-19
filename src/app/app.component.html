@@ -14,14 +14,7 @@
         </div>
       }
       <form>
-        <div class="ta-user-tag">
-          <textarea id="comment-editor" (keyup)="keyup($event)"></textarea>
-          <div class="users-list" *ngIf="is_show_dialog">
-            @for (user of users; track user.userID) {
-              <div class="user-item">{{ user.name }}</div>
-            }
-          </div>
-        </div>
+        <app-ta-user-tag [users]="users"></app-ta-user-tag>
         <input type="submit">
       </form>
     </div>
