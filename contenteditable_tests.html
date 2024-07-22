@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <style>
+      div[contenteditable=true]{
+        border: 1px solid black;
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+      }
+      dt, dd{
+        width: 150px;
+        float: left;
+      }
+      .clearfix {
+        clear: both;
+      }
+      dt{
+        font-weight: 600;
+        text-align: right;
+      }
+      dd{
+        text-align: left;
+        margin-left: 10px;
+      }
+      #raw_source{
+        border: 1px solid black;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="">
+      <div id="editor" contenteditable="true" onkeydown="keydown(event)" onkeyup="keyup(event)">
+        <strong>strong</strong>
+        New line
+        1234567890
+      </div>
+      <div class="debug">
+        <dl class="dl">
+          <dt>Caret position:</dt><dd id="caret_position"></dd>
+        </dl>
+        <div class="clearfix"></div>
+        <div><pre id="raw_source"></pre></div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+      is_ready_to_insert = false;
+
+      function keyup(ev){
+        var target = document.getElementById("editor");
+        document.getElementById("caret_position").innerText = getCursorPosition(target)
+        document.getElementById("raw_source").innerText = target.innerHTML
+      }
+      function keydown(ev) {
+        var target = document.getElementById("editor");
+        //var e = e || window.event;
+
+        var key;
+        var isShift;
+        if (window.event) {
+          key = window.event.keyCode;
+          isShift = !!window.event.shiftKey; // typecast to boolean
+        } else {
+          key = ev.which;
+          isShift = !!ev.shiftKey;
+        }
+        if ( isShift ) {
+          if(key == 16){
+
+          }else if(key==50){
+            //console.log(key)
+            is_ready_to_insert = true;
+            console.log("Ready to insert. Wait for Enter")
+          }
+        }
+        if(key == 13){
+          if(is_ready_to_insert) {
+            ev.preventDefault()
+            insertHtmlAtCursor(" <strong>@[0000]</strong> ")
+            is_ready_to_insert = false
+          }
+        }
+
+        console.log('"'+JSON.stringify(target.innerHTML)+'"')
+      }
+      function getCursorPosition(target){
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+        const cloned_range = range.cloneRange();
+        cloned_range.selectNodeContents(target);
+        cloned_range.setEnd(range.endContainer, range.endOffset);
+        const position = cloned_range?.toString().length;
+        return position
+      }
+
+      function insertNodeAtCursor(node) {
+        var range, html;
+        if (window.getSelection && window.getSelection().getRangeAt) {
+          range = window.getSelection().getRangeAt(0);
+          range.insertNode(node);
+        } else if (document.selection && document.selection.createRange) {
+          range = document.selection.createRange();
+          html = (node.nodeType == 3) ? node.data : node.outerHTML;
+          range.pasteHTML(html);
+        }
+      }
+
+      function insertHtmlAtCursor(html) {
+        var range, node;
+        if (window.getSelection && window.getSelection().getRangeAt) {
+          selection = window.getSelection()
+          range = window.getSelection().getRangeAt(0);
+          range.setStart(range.startContainer, range.startOffset - 1);
+
+          selection.deleteFromDocument()
+          node = range.createContextualFragment(html);
+          range.insertNode(node);
+
+          //range.setStart(range.endContainer, range.endOffset);
+          range.collapse(false);
+
+        } else if (document.selection && document.selection.createRange) { //IE <9
+          document.selection.createRange().pasteHTML(html);
+        }
+      }
+
+      function setCaretAt(target, position){
+        pos = position;
+        for(var i=0; i<target.childNodes.length; i++){
+          node = target.childNodes[i];
+          l = setCaretAt(node, pos)
+
+        }
+      }
+    </script>
+  </body>
+</html>
