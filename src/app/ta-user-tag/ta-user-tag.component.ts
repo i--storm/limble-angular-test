@@ -40,16 +40,6 @@ export class TaUserTagComponent {
 
       let user = this.users_filtered[this.dialog_selected_idx]
 
-      // const cursor_position = this.getCursorPosition(target)!
-      //
-      // let text = target.innerText
-      //
-      // let brs_count  =text.substring(0 , cursor_position).split("\n").length-1
-      //
-      // target.textContent = text.substring(0 , cursor_position+brs_count) + user.name + text.substring(cursor_position+brs_count)
-      //
-      // this.setCursorPosition(target, cursor_position+user.name.length+brs_count)
-
       this.insertHtmlAtCursor(" <strong><u>@"+user.name+"</u></strong> ")
 
       target.focus();
@@ -57,6 +47,7 @@ export class TaUserTagComponent {
       this.is_show_dialog = false
 
       console.log("Notify user: "+user.userID)
+      alert("Notify user: "+user.userID)
 
     }else if(e.key=="ArrowUp"){
       if(!this.is_show_dialog){
