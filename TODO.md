@@ -1,1 +1,1 @@
-- user filtering
+- search case insensitive

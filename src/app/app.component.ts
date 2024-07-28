@@ -13,13 +13,13 @@ import {UserToggleDirective} from "./user-toggle.directive";
 export class AppComponent {
   title = 'Limble-angular-test';
   comments = [
-    {id: 1, photo: "", user: "username 1", text: "comment text 1"},
-    {id: 2, photo: "", user: "username 2", text: "comment text 2"},
-    {id: 3, photo: "", user: "username 3", text: "comment text 3"},
-    {id: 4, photo: "", user: "username 2", text: "comment text 4"},
-    {id: 5, photo: "", user: "username 2", text: "comment text 5"},
-    {id: 6, photo: "", user: "username 1", text: "comment text 6"},
-    {id: 7, photo: "", user: "username 3", text: "comment text 7"}
+    {id: 1, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp", user: "Martha", text: "comment text 1"},
+    {id: 2, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp", user: "Johny", text: "comment text 2"},
+    {id: 3, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp", user: "Mary Kate", text: "comment text 3"},
+    {id: 4, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp", user: "Johny", text: "comment text 4"},
+    {id: 5, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp", user: "Martha", text: "comment text 5"},
+    {id: 6, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp", user: "Johny", text: "comment text 6"},
+    {id: 7, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp", user: "Mary Kate", text: "comment text 7"}
 
   ];
   users = [
@@ -27,7 +27,7 @@ export class AppComponent {
     {'userID' : 2, 'name' : 'Jeff'},
     {'userID' : 3, 'name' : 'Bryan'},
     {'userID' : 4, 'name' : 'Gabbey'},
-    {'userID' : 4, 'name' : 'Bob'},
+    {'userID' : 5, 'name' : 'Bob'},
   ];
 
 }

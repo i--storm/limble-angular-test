@@ -39,7 +39,7 @@ export class UserToggleService {
 
     const div = document.createElement('div');
     div.setAttribute('id','users-list');
-    div.setAttribute('class','users-list');
+    div.setAttribute('class','users-list input');
     div.style.width = this.dialog_width;
     div.style.height = this.dialog_height;
     div.style.top = this.dialog_top;
