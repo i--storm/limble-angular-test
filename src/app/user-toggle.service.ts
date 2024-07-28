@@ -78,7 +78,7 @@ export class UserToggleService {
       this.users_filtered = [];
       for(let i=0; i<this.users.length; i++){
         let user = this.users[i];
-        if(user.name.startsWith(query)){
+        if(user.name.toLowerCase().startsWith(query.toLowerCase())){
           this.users_filtered.push(user);
         }
       }
