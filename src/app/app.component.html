@@ -5,7 +5,7 @@
       @for (comment of comments; track comment.id) {
       <div class="card mb-4">
         <div class="card-body">
-          <p>{{ comment.text }}</p>
+          <p [innerHTML]="comment.text"></p>
 
           <div class="d-flex justify-content-between">
             <div class="d-flex flex-row align-items-center">
@@ -27,7 +27,7 @@
         <div class="ta-user-tag form-group mb-2">
           <div id="comment-editor" class="form-control" contenteditable="true" appUserToggle [users]="users"></div>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" (click)="submit($event)">Submit</button>
       </form>
     </div>
   </div>

@@ -30,4 +30,20 @@ export class AppComponent {
     {'userID' : 5, 'name' : 'Bob'},
   ];
 
+  submit(e: MouseEvent){
+    e.preventDefault()
+    let max_id = 0;
+    for(let i=0;i<this.comments.length; i++){
+      if(this.comments[i].id > max_id){
+        max_id = this.comments[i].id;
+      }
+    }
+
+    let target = document.getElementById("comment-editor");
+
+    this.comments.push({id: max_id+1, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp", user: "Mary Kate", text: target!?.innerHTML})
+
+    if(target) target.innerHTML = "";
+  }
+
 }
