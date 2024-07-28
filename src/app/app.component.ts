@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TaUserTagComponent } from "./ta-user-tag/ta-user-tag.component";
+import {UserToggleDirective} from "./user-toggle.directive";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TaUserTagComponent],
+  imports: [RouterOutlet, TaUserTagComponent, UserToggleDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

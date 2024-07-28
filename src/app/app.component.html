@@ -14,7 +14,10 @@
         </div>
       }
       <form>
-        <app-ta-user-tag [users]="users"></app-ta-user-tag>
+        <!--<app-ta-user-tag [users]="users"></app-ta-user-tag>-->
+        <div class="ta-user-tag">
+          <div id="comment-editor" contenteditable="true" appUserToggle [users]="users"></div>
+        </div>
         <input type="submit">
       </form>
     </div>
