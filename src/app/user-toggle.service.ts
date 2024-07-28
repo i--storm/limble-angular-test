@@ -20,6 +20,7 @@ export class UserToggleService {
   dialog_selected_idx = 0
 
   dialog: HTMLDivElement|null = null;
+  query: string = "";
 
   constructor() { }
 
@@ -29,7 +30,9 @@ export class UserToggleService {
     this.el = el;
   }
 
-  showDialog(auery: string, x: number|null, y:number|null){
+  showDialog(x: number|null, y:number|null){
+
+    this.query = "";
 
     this.dialog_top = y !== null? y+"px":this.dialog_top;
     this.dialog_left = x !== null? x+"px":this.dialog_left;
@@ -65,6 +68,22 @@ export class UserToggleService {
     if(div == null){
       return;
     }
+
+
+    let query = this.query;
+
+    if(query == ""){
+      this.users_filtered = this.users;
+    }else{
+      this.users_filtered = [];
+      for(let i=0; i<this.users.length; i++){
+        let user = this.users[i];
+        if(user.name.startsWith(query)){
+          this.users_filtered.push(user);
+        }
+      }
+    }
+
     div.innerHTML = '';
     for(let i=0; i<this.users_filtered.length; i++){
       let user = this.users_filtered[i];
@@ -81,6 +100,7 @@ export class UserToggleService {
 
   hideDialog(){
     this.is_show_dialog = false
+    this.query = "";
     this.dialog?.remove();
   }
 
@@ -142,12 +162,16 @@ export class UserToggleService {
           inline: "nearest"
         });
       this.updateDialog()
+    }else if("abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".includes(e.key)){
+      this.query = this.query + e.key;
+      this.updateDialog()
     }
   }
   keyup(e: KeyboardEvent){
     let target = e.target as HTMLDivElement;
 
     //if(target !== null && target.value==="@") {
+    console.log(e.key);
     if(e.key === "@"){
 
       const r = document.getSelection()?.getRangeAt(0)
@@ -181,15 +205,19 @@ export class UserToggleService {
           x=x-dialog_width_int;
         }
 
-        this.showDialog("", x, y)
-
+        this.showDialog(x, y)
 
       }
 
     }else if(e.key==" "){
-      this.is_show_dialog = false;
+      this.hideDialog()
     }else if(e.key=="Escape"){
-      this.is_show_dialog = false
+      this.hideDialog()
+    }else if(e.key=="Backspace"){
+      if(this.is_show_dialog) {
+        this.query = this.query.substring(0, this.query.length > 0 ? this.query.length - 1 : 0)
+        this.updateDialog()
+      }
     }else{
       if(this.is_show_dialog){
 
@@ -215,7 +243,7 @@ export class UserToggleService {
     if (window.getSelection && window.getSelection()?.getRangeAt) {
       let selection = window.getSelection()
       range = window.getSelection()?.getRangeAt(0);
-      range!?.setStart(range!?.startContainer, range!?.startOffset - 1);
+      range!?.setStart(range!?.startContainer, range!?.startOffset - 1 - this.query.length);
 
       selection?.deleteFromDocument()
       node = range!?.createContextualFragment(html);

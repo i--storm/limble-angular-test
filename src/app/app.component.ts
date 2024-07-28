@@ -27,6 +27,7 @@ export class AppComponent {
     {'userID' : 2, 'name' : 'Jeff'},
     {'userID' : 3, 'name' : 'Bryan'},
     {'userID' : 4, 'name' : 'Gabbey'},
+    {'userID' : 4, 'name' : 'Bob'},
   ];
 
 }
