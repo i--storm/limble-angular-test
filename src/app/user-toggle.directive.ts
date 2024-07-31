@@ -18,7 +18,14 @@ export class UserToggleDirective implements OnInit{
   constructor(private elementRef: ElementRef, uts: UserToggleService) {
     this.uts = uts;
     const el = elementRef.nativeElement as HTMLElement;
-
+    el.addEventListener("blur", (e)=>{
+      console.log("blur");
+      this.uts.savePosition()
+    });
+    el.addEventListener("focus", (e)=>{
+      console.log("focus");
+      this.uts.restorePosition()
+    });
 
     //div.textContent = 'Inserted Div';
     //div.style.backgroundColor = 'red';
@@ -42,6 +49,12 @@ export class UserToggleDirective implements OnInit{
     event: KeyboardEvent
   ): any {
     this.uts.keyup(event)
+  }
+
+  @HostListener('onfocusout', ['$event']) public onFocusOut(
+    event: KeyboardEvent
+  ): any {
+    console.log('onfocusout')
   }
 
 }

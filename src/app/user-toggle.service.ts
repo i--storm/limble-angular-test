@@ -22,6 +22,8 @@ export class UserToggleService {
   dialog: HTMLDivElement|null = null;
   query: string = "";
 
+  saved_range: Range|undefined;
+
   constructor() { }
 
   init(users: any, el: HTMLElement){
@@ -69,7 +71,6 @@ export class UserToggleService {
       return;
     }
 
-
     let query = this.query;
 
     if(query == ""){
@@ -93,6 +94,15 @@ export class UserToggleService {
       u_el.style.padding = '10px';
       if(this.dialog_selected_id == user.userID || this.dialog_selected_idx == i){
         u_el.style.backgroundColor = "#aaa";
+      }
+      let context = this;
+      u_el.onclick = function (e){
+        let user = context.users_filtered[i]
+
+        context.el?.focus()
+        context.insertHtmlAtCursor("<span class='user'>@"+user.name+"</span> ")
+
+        context.hideDialog()
       }
       div.appendChild(u_el)
     }
@@ -209,6 +219,8 @@ export class UserToggleService {
 
       }
 
+      this.savePosition()
+
     }else if(e.key==" "){
       this.hideDialog()
     }else if(e.key=="Escape"){
@@ -241,16 +253,38 @@ export class UserToggleService {
   insertHtmlAtCursor(html: string) {
     let range, node;
     if (window.getSelection && window.getSelection()?.getRangeAt) {
-      let selection = window.getSelection()
-      range = window.getSelection()?.getRangeAt(0);
-      range!?.setStart(range!?.startContainer, range!?.startOffset - 1 - this.query.length);
+      if(this.saved_range == undefined) {
+        let selection = window.getSelection()
+        range = window.getSelection()?.getRangeAt(0);
+        range!?.setStart(range!?.startContainer, range!?.startOffset - 1 - this.query.length);
 
-      selection?.deleteFromDocument()
+        selection?.deleteFromDocument()
+      }else{
+        range = this.saved_range;
+        range!?.setStart(range!?.startContainer, range!?.startOffset - 1 - this.query.length);
+        range.deleteContents()
+      }
       node = range!?.createContextualFragment(html);
       range!?.insertNode(node);
 
       //range.setStart(range.endContainer, range.endOffset);
       range!?.collapse(false);
+    }
+  }
+
+  savePosition(){
+    if (window.getSelection && window.getSelection()?.getRangeAt) {
+      let selection = window.getSelection()
+      let range = window.getSelection()?.getRangeAt(0);
+      this.saved_range = range;
+    }
+  }
+
+  restorePosition(){
+    if (this.saved_range) {
+      let selection = window.getSelection();
+      selection?.removeAllRanges();
+      selection?.addRange(this.saved_range);
     }
   }
 }
