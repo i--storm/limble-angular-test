@@ -1,11 +1,12 @@
 <main class="main">
   <div class="content">
+    <span class="user">user</span>
     <div class="comments">
 
       @for (comment of comments; track comment.id) {
       <div class="card mb-4">
         <div class="card-body">
-          <p [innerHTML]="comment.text"></p>
+          <div [innerHTML]="comment.text"></div>
 
           <div class="d-flex justify-content-between">
             <div class="d-flex flex-row align-items-center">

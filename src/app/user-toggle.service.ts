@@ -116,7 +116,7 @@ export class UserToggleService {
 
       let user = this.users_filtered[this.dialog_selected_idx]
 
-      this.insertHtmlAtCursor(" <strong><u>@"+user.name+"</u></strong> ")
+      this.insertHtmlAtCursor("<span class='user'>@"+user.name+"</span> ")
 
       target.focus();
 

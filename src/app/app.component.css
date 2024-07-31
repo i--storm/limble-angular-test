@@ -43,3 +43,8 @@
 .users-list .user-item:hover{
   background-color: #eee;
 }
+
+span.user{
+  font-weight: 600;
+  text-decoration: underline;
+}

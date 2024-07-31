@@ -2,18 +2,20 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TaUserTagComponent } from "./ta-user-tag/ta-user-tag.component";
 import {UserToggleDirective} from "./user-toggle.directive";
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, TaUserTagComponent, UserToggleDirective],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
   title = 'Limble-angular-test';
   comments = [
-    {id: 1, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp", user: "Martha", text: "comment text 1"},
+    {id: 1, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(4).webp", user: "Martha", text: "comment text 1 <span class='user'>user</span>"},
     {id: 2, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp", user: "Johny", text: "comment text 2"},
     {id: 3, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp", user: "Mary Kate", text: "comment text 3"},
     {id: 4, photo: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp", user: "Johny", text: "comment text 4"},
