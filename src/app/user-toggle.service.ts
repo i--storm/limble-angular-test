@@ -22,7 +22,9 @@ export class UserToggleService {
   dialog: HTMLDivElement|null = null;
   query: string = "";
 
+  saved_selection: Selection|null = null;
   saved_range: Range|undefined;
+
 
   constructor() { }
 
@@ -184,6 +186,10 @@ export class UserToggleService {
     console.log(e.key);
     if(e.key === "@"){
 
+      if(!this.checkSpace()){
+        return;
+      }
+
       const r = document.getSelection()?.getRangeAt(0)
       if(r == undefined){
         return
@@ -276,7 +282,9 @@ export class UserToggleService {
     if (window.getSelection && window.getSelection()?.getRangeAt) {
       let selection = window.getSelection()
       let range = window.getSelection()?.getRangeAt(0);
+      this.saved_selection = selection;
       this.saved_range = range;
+
     }
   }
 
@@ -286,5 +294,35 @@ export class UserToggleService {
       selection?.removeAllRanges();
       selection?.addRange(this.saved_range);
     }
+  }
+
+  checkSpace(){
+
+    if (window.getSelection && window.getSelection()?.getRangeAt) {
+      let selection = window.getSelection()
+      let range = window.getSelection()?.getRangeAt(0);
+      let start_offset = range!?.startOffset
+
+      let res = false;
+
+      if(start_offset > 1){
+        range!?.setStart(range!?.startContainer, start_offset - 2);
+        if(selection?.toString()==" @"){
+          res = true;
+        }
+      }else if(start_offset == 1){
+        range!?.setStart(range!?.startContainer, start_offset - 1);
+        if(selection?.toString()=="@"){
+          res = true;
+        }
+      }
+
+      range!?.setStart(range!?.startContainer, start_offset);
+
+      return res;
+
+    }
+
+    return false;
   }
 }
